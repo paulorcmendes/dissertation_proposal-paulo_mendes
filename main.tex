@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+
+\usepackage[pdftex]{graphicx} % OU
+% \usepackage[dvips]{graphicx}
+
+% \usepackage[round]{natbib}
+\usepackage{adjustbox,array,url,hyperref,multirow,makecell,tabularx,caption,subcaption}
+% \usepackage{url,hyperref,multirow,makecell}
+\usepackage[table]{xcolor}
+\usepackage{lipsum}
+\usepackage{cite}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[brazilian,brazil]{babel}
+
+%\usepackage{float}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{todonotes}
+\newcommand{\pmendes}[1]{\color{blue}\textbf{paulo says: }#1}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  angles,
+  arrows,
+  arrows.meta,
+  calc,
+  intersections,
+  positioning,
+  quotes,
+  shapes.geometric,
+  through,
+}
+\tikzset{
+  x=0em,
+  y=0em,
+  node distance=1.2em,
+  >=stealth',
+}
+
+\newcommand*\rot[1]{\rotatebox{90}{#1}}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\CQD}{\mbox{\rule[0pt]{1.5ex}{1.5ex}}\medskip}
+\newcommand{\M}{\mathcal{M}}
+
+\setlength{\oddsidemargin}{0.5cm} \setlength{\textwidth}{15cm}
+\setlength{\topmargin}{-1.5cm} \setlength{\textheight}{22.3cm}%{24.7cm}
+
+\usepackage{pdfpages}
+
+\begin{document}
+
+\LARGE
+
+% \bigskip
+
+%% TITLE
+\begin{center}
+{\bf Automatic Subtitles Positioning in 360-degree Video
+\Large
+\\Dissertation Proposal}
+\end{center}
+
+
+\bigskip
+\normalsize
+
+\begin{flushright}
+
+Paulo Renato Conceição Mendes\\
+Pontifical Catholic University of Rio de Janeiro\\
+\texttt{paulo.mendes@telemidia.puc-rio.br}
+\end{flushright}
+
+
+\date{}
+
+% $~$ \\
+
+\thispagestyle{empty}
+
+%
+%\input{body/00_Abstract_Keywords.tex}
+
+% \newpage
+\pagenumbering{roman} \setcounter{page}{-1}
+
+% TABLE OF CONTENTS -  OPTIONAL
+%\newpage
+\tableofcontents
+
+%% BEGIN DOCUMENT
+\newpage
+\pagenumbering{arabic} \setcounter{page}{1}
+
+
+%%% Sections....
+\input{body/01_Introduction.tex}
+\input{body/02_Related_Work.tex}
+\input{body/03_Proposed_Approach.tex}
+\input{body/04_Final_Considerations.tex}
+
+\newpage
+% \addcontentsline{toc}{section}{Referências}
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{sbc}
+% \bibliographystyle{plainnat}
+\bibliography{sbc-template}
+
+\end{document}
