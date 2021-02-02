@@ -59,7 +59,34 @@ In summary, for this phase, we have defined the following tasks:
 \end{itemize}
 
 
-\subsection{Actors Clusterization}
+\subsection{Actors Clustering}
+
+The main objective of this phase is to group the actors present in different frames of a given 360° video, so that we can track the trajectory of such actors through the duration of the video. 
+
+For each face detected in the previous phase, we generate embeddings that represent it.
+%%
+The objective of the embeddings generation step is to represent each face image as a vector space in $\mathbb{R}^{n}$.
+%%
+To achieve that, it processes each of the faces generated in the previous phase through a Convolutional Neural Network~(CNN), generating embeddings. 
+%%
+An embedding is a representation of the input in a lower dimensionality space.
+%%
+Ideally, an embedding captures some semantics of the input, e.g. by placing semantically similar inputs close together in the embedding space.
+%
+At the end of this step, we have all faces represented as embeddings.
+%%
+
+Once we have all the faces from all frames represented as embedding, we group such embeddings and, consequently, faces that are close in the embedding space using a clustering algorithm. 
+%
+Clustering is the task of dividing a set of data points, embeddings in this case, into a number of groups~(clusters) such that data points in a given group are similar to other data points in the same group and dissimilar to the data points in other groups.
+%%
+The clustering process should produce a partition of the dataset, i.e., each generated cluster represents a specific person, and the union of all clusters covers the whole dataset.
+
+\pmendes{We have already conducted actors clustering in two published works.}
+
+In \cite{mendes2020cluster}
+
+In \cite{mendes2020ISM}
 
 
 
