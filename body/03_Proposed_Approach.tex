@@ -169,3 +169,19 @@ In summary, for this phase, we have defined the following tasks:
 
 
 \subsection{Dynamic Subtitles Positioning}
+
+The main objective of this phase is to position subtitles considering the position of the actors in the 360° video.
+
+In \cite{mendes_2020}, we proposed a model for authoring interactive 360° video. In such a model, we can define interactive 360° video that are presented together with additional information attached to it, such as image, text and spatial audio. The positioning of such additional information is defined by their polar coordinates, start time and duration. Moreover, we can also configure behaviours depending on where the user is looking. For instance, we can define that a text moves with the user's head motion and is always visible or that such text is placed at fixed position if it is in the field of view of the user. Besides the design of such a model, we developed a player that follows the definitions of our model and is able to play interactive 360° video defined by it. Then, we can use the results obtained from the previous phases to define the positioning of subtitles according to the actors positioning using our player.
+
+We plan to evaluate our strategy for subtitles positioning with users, presenting 360° video with different strategies for subtitles positioning and comparing them with ours. Our strategy fits in the category described in Section \ref{subsubsec:speaker_following}, but different from the strategies presented there, ours use machine learning to help content creators define how subtitles behave.
+
+In summary, for this phase, we have defined the following tasks:
+
+\begin{itemize}
+    \item \textbf{T 3.1}: Definition of a model that supports subtitles positioning using polar coordinates.
+    \item \textbf{T 3.2}: Development of a player that supports dynamic subtitles positioning depending on the users' field of view.
+    \item \textbf{T 3.3}: Definition of 360° videos that will be used in the evaluation.
+    \item \textbf{T 3.4}: Definition of questionnaires/evaluation metrics.
+    \item \textbf{T 3.5}: Evaluation of our strategy.
+\end{itemize}
