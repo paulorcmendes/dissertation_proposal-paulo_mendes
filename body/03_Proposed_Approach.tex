@@ -82,13 +82,90 @@ Clustering is the task of dividing a set of data points, embeddings in this case
 %%
 The clustering process should produce a partition of the dataset, i.e., each generated cluster represents a specific person, and the union of all clusters covers the whole dataset.
 
-\pmendes{We have already conducted actors clustering in two published works.}
+In \cite{mendes2020cluster}, we collected a dataset using the information provided by the Brazilian Chamber of Deputies\footnote{\url{https://www.camara.leg.br/}} for the 55th legislature, which was in session from February 1st, 2015 through January 31st, 2019.
+%%
+In total, 623 different deputies participated during some period in the 55th legislature, but we collected only 513 deputies from this set.
+%%
+For each of the 513 deputies, we collected images in which he/she was present using Google Images.
+%%
+The resulting dataset had a total of 9,003 images, with a mean of ~17.55 images per deputy and a standard deviation of ~6.91. 
+%%
+The maximum and minimum number of images per deputy are respectively 32 and 2.
+%%
+We have randomly selected one image of each deputy for validation and the rest for training.
+%%
+Thus, our dataset was divided in two: the training set, with 8,490 images, and the validation set, with 513 images.  
+%%
+We tested three different CNNs for the \emph{Embeddings Generation} step in association with three different clustering algorithms for the \emph{Clustering} step.
+%%
+For that, we evaluated each pair of \emph{CNN x ClusteringAlg} through the quality of the clusters they generated. 
+%%
+To experiment, we used the training set with 8490 deputy images.
 
-In \cite{mendes2020cluster}
+For embeddings generation, we had three candidate CNNs that were previously trained on the VGGFace2 dataset~\cite{cao2018vggface2}. 
+%%
+The VGGFace2 dataset contains $3.31$ million images of $9131$ subjects and has large variations in pose, age, illumination, ethnicity, and profession.
+%%
+The three candidate CNNs used are VGG-16~\cite{vgg16}, ResNet-50~\cite{resnet} and SE-ResNet-50~\cite{senet}~(SeNet-50 for short). VGG-16 generates embeddings in the $\mathbb{R}^{512}$  feature space, while ResNet-50 and SeNet-50 generate embeddings in the $\mathbb{R}^{2048}$ feature space.  
+For clustering, we selected the following clustering algorithms as candidates: k-Means \cite{lloyd1982least}, affinity propagation \cite{frey2007clustering}, and agglomerative clustering \cite{ward1963hierarchical}.
 
-In \cite{mendes2020ISM}
 
+We evaluated each combination~(cnn x clustering algorithm) using the V-Measure \cite{vmeasure}, which is an entropy-based measure that computes how successfully the criteria of homogeneity and completeness have been satisfied. This metric is extensively used for comparing clustering solutions and has been used in different domain fields such as biology \cite{bio1}, computational linguistics \cite{nlp1}, and document engineering \cite{doceng}.
+
+\begin{table}[!ht]
+%\vspace{-1em}
+\centering
+\small
+\caption{Results of the evaluation of the clusters created by each combination of CNN and clustering algorithms.}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{CNN} & \textbf{Clustering} & \textbf{$h$} & \textbf{$c$} & \textbf{$V_1$} \\ \midrule
+                  & KM                  & 0.9665                     & 0.9675                      & 0.9670             \\
+ResNet-50         & AP                  & 0.0000                     & 1.0000                      & 0.0000             \\
+                  & AC                  & 0.9821                     & 0.9798                      & 0.9810             \\ \midrule
+                  & KM                  & 0.9725                     & 0.9726                      & 0.9725             \\
+SeNet-50          & AP                  & 0.9859                     & 0.9558                      & 0.9706             \\
+                  & \textbf{AC}         & \textbf{0.9862}            & \textbf{0.9833}             & \textbf{0.9847}    \\ \midrule
+                  & KM                  & 0.8340                     & 0.8415                      & 0.8378             \\
+VGG-16            & AP                  & 0.0000                     & 1.0000                      & 0.0000             \\
+                  & AC                  & 0.8899                     & 0.8929                      & 0.8914             \\
+\end{tabular}
+\label{tab:results_clustering}
+\vspace{-1em}
+\end{table}
+
+From Table \ref{tab:results_clustering}, we concluded that the best combination of CNN and clustering algorithm was SeNet-50 with Agglomerative Clustering. Then, we used this combination in thirteen video, being able to track the actors in them. Figure \ref{fig:timeline1} shows the actors present in one of the videos with the frames tagged with colors representing the actors present on them.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/timeline2.png}
+    \caption{Timeline with tagged frames by their clusters~(actors) present.}
+    \label{fig:timeline1}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ism
+
+Following this approach, in \cite{mendes2020ISM}, we used actors face clustering for recommending videos that share the presence of the same actors. As we obtained the best results with the combination SeNet-50 with Agglomerative Clustering in \cite{mendes2020cluster}, we used this same combination in \cite{mendes2020ISM}. 
+In that work, we used actors face clustering in 98 videos and around 72\% of the faces went to the correct clusters. Figure \ref{fig:timeline2} shows part of the timeline of one of the videos tagged with colors representing the color of each actor present.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/educational_timeline2.png}
+    \caption{Timeline with tagged frames by their clusters~(actors) present.}
+    \label{fig:timeline2}
+\end{figure}
+
+Due to the distortions present in 360° video frames, we intend to process the region~(probabily using a viewport concentric with the bounding polygon of the face) before it pass through the embeddings generation and clustering steps. We expect that, in the end of this phase we will have, for a given 360° video, the trajectory of each actor throughout the duration of the video.
+
+In summary, for this phase, we have defined the following tasks:
+
+
+\begin{itemize}
+    \item \textbf{T 2.1}: Evaluation of combinations of CNNs and clustering algorithms.
+    \item \textbf{T 2.2}: Evaluation of faces clustering with videos.
+    \item \textbf{T 2.3}: Development of a method to correct distortions before faces clustering in 360° video.
+\end{itemize}
 
 
 \subsection{Dynamic Subtitles Positioning}
-
