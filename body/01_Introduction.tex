@@ -6,7 +6,12 @@ Several people use subtitles when consuming audiovisual media, and these subtitl
 
 Different from traditional 2D videos, subtitles positioning in 360-videos is challenging because it involves both temporal and spatial domains \cite{agullo2019making}, and there is no ``center-bottom" of the screen in a 360-video \cite{brown_subtitles_2017}. Most current solutions rely on positioning subtitles either statically to the viewer or at a fixed position in the 360-degree environment \cite{mendes_2020}. According to \cite{li_impacts_2018}, in a journalistic 360-videos case study, the subtitles viewing behaviour is dependent on the type of content. 
 
-Equirectangular projection is the most common way for representing and transmitting 360° video~\cite{yang2018object}. With the equirectangular projection, each sphere point is defined by two angles~\cite{snyder1987map}: \emph{latitude}~$\theta \in [-90^{\circ}, +90^{\circ}]$ and \emph{longitude}~$\phi \in [-180^{\circ}, +180^{\circ}]$. This kind of projection creates challenges for image processing and computer vision algorithms, especially to the convolution-based ones because of the severe distortions in areas vertically distant from the center of the image~(see Figure \ref{fig:equirectangular_proj}).
+A Machine Learning~(ML) based solution may help content creators position subtitles based on the people present on the 360° video. Such a solution could help identifying the speaker in 360° video, while also reducing the effort in the process of authoring such video. However, due to the peculiarities of this kind of content, current ML solutions should be adapted. Equirectangular projection is the most common way for representing and transmitting 360° video~\cite{yang2018object}. With the equirectangular projection, each sphere point is defined by two angles~\cite{snyder1987map}: \emph{latitude}~$\theta \in [-90^{\circ}, +90^{\circ}]$ and \emph{longitude}~$\phi \in [-180^{\circ}, +180^{\circ}]$. This kind of projection creates challenges for image processing and computer vision algorithms, especially to the convolution-based ones because of the severe distortions in areas vertically distant from the center of the image~(see Figure \ref{fig:equirectangular_proj}). Thus, our main research questions are the following:
+
+\begin{itemize}
+    \item[RQ.1] \emph{How can we adapt existing ML solutions for speaker identification to the equirectangular domain?}
+    \item[RQ.2] \emph{How can an ML-based solution be used to position subtitles in 360° video and still promote quality of experience?}
+\end{itemize}
 
 \begin{figure}[!ht]
 \centering
