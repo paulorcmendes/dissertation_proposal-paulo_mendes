@@ -1,6 +1,6 @@
 \section{Approach}
 \label{sec:approach}
-Let us define as \emph{actor} each person present in a 360º video. Therefore, the goal of our approach is to place subtitles based on the actors' position on a given 360° video. To accomplish this goal, we use face detection and clustering mechanisms to identify the actors' trajectory 360° video. Then, based on this trajectory, we place dynamic subtitles following the actors' path. For didatic purposes, we decided to divide our exposition in three phases: (i)~\emph{face detection in 360° videos}, (ii)~\emph{actors clusterization}, and (iii)~\emph{dynamic subtitles positioning}. These phases are described in the following subsections. 
+Let us define as \emph{actor} each person present in a 360º video. Therefore, the goal of our approach is to place subtitles based on the actors' position on a given 360° video. To accomplish this goal, we use face detection and clustering mechanisms to identify the actors' trajectory in 360° video. Then, based on this trajectory, we place dynamic subtitles following the actors' path. For dicdatic purposes, we decided to divide our exposition in three phases: (i)~\emph{face detection in 360° videos}, (ii)~\emph{actors clusterization}, and (iii)~\emph{dynamic subtitles positioning}. These phases are described in the following subsections. 
 
 \subsection{Face Detection in 360° videos}
 
@@ -23,7 +23,7 @@ Because of the distortions present on the equirectangular projection, we opted f
 \end{figure}
 
 For each viewport, we apply a face detection model. 
-Then, we project the faces detected bounding boxes back to the equirectangular image. For doing that for a given bounding box, we project the four corners and the mean point of each edge~(8 points in total). Therefore, in the equirectangular image, we deal with polyogons instead of bounding boxes, due to the distortions introduced. As different viewports may intersect and cover part of the same region in an image, we apply Non-maximum Supression~(NMS), eliminating intersected detections within a given threshold. One of the main advantages of this approach is that we can use face detection models trained in regular images, since distortions are reduced with the use of viewports.
+Then, we project the faces detected bounding boxes back to the equirectangular image. For doing that for a given bounding box, we project the four corners and the mean point of each edge~(8 points in total). Therefore, in the equirectangular image, we deal with polygons instead of bounding boxes, due to the distortions introduced. As different viewports may intersect and cover part of the same region in an image, we apply Non-maximum Supression~(NMS), eliminating intersected detections within a given threshold. One of the main advantages of this approach is that we can use face detection models trained in regular images, since distortions are reduced with the use of viewports.
 
 Due to the lack of datasets for face detection in equirectangular images, we created a synthetic dataset based on the FDDB dataset~\cite{fddbTech}, a popular benchmark for face detection evaluation containing 2845 images and 5171 faces. We collected 19 indoor and outdoor equirectangular images, from Google Images,\footnote{https://www.google.com/imghp} ESO,\footnote{https://www.eso.org/public} and PxHere.\footnote{https://pxhere.com}
 For each image in the FDDB dataset, we randomly chose a latitude, longitude and equirectangular image to project it. For each face present on that image, we projected the bounding box to a polygon exactly as mentioned in the viewport process. Figure \ref{fig:fddb_proj} shows an example of an image from FDDB projected in the polar coordinates \emph{lat} $ = -60^{\circ}$ \emph{long} $= 0^{\circ}$ to an equirectangular image.
@@ -47,15 +47,15 @@ For each image in the FDDB dataset, we randomly chose a latitude, longitude and 
 \label{fig:fddb_proj}
 \end{figure}
 
-As evaluation metric, we intend to use Mean Average Precision~(mAP), that is commonly used to evaluate object detection algorithms~[ref]. As face detector, we are currently implementing a solution using MTCNN~\cite{mtcnn} (Multitask Cascaded Convolutional Networks) which is widely used for the face detection task~\cite{mtcnn1, mtcnn2, mtcnn3}. %If we have time, we also intend to test YOLO
+As evaluation metric, we use Mean Average Precision~(mAP), that is commonly used to evaluate object detection algorithms~[ref]. As face detector, we implemented a solution using MTCNN~\cite{mtcnn} (Multitask Cascaded Convolutional Networks) which is widely used for the face detection task~\cite{mtcnn1, mtcnn2, mtcnn3}. %If we have time, we also intend to test YOLO
 
 In summary, for this phase, we have defined the following tasks:
 
 \begin{itemize}
     \item \textbf{T 1.1}: Implementation of model based on viewports for face detection in 360° equirectangular images~(100\% complete).
     \item \textbf{T 1.2}: Synthetic dataset creation~(100\% complete).
-    \item \textbf{T 1.3}: Model test in the dataset using MTCNN~(80\% complete).
-    \item \textbf{T 1.4}: Results evaluation using mAP~(60\% complete).
+    \item \textbf{T 1.3}: Model test in the dataset using MTCNN and MTCNN with viewports~(100\% complete).
+    \item \textbf{T 1.4}: Results evaluation using mAP~(90\% complete).
 \end{itemize}
 
 
@@ -110,7 +110,7 @@ The three candidate CNNs used are VGG-16~\cite{vgg16}, ResNet-50~\cite{resnet} a
 For clustering, we selected the following clustering algorithms as candidates: k-Means \cite{lloyd1982least}, affinity propagation \cite{frey2007clustering}, and agglomerative clustering \cite{ward1963hierarchical}.
 
 
-We evaluated each combination~(cnn x clustering algorithm) using the V-Measure \cite{vmeasure}, which is an entropy-based measure that computes how successfully the criteria of homogeneity and completeness have been satisfied. This metric is extensively used for comparing clustering solutions and has been used in different domain fields such as biology \cite{bio1}, computational linguistics \cite{nlp1}, and document engineering \cite{doceng}.
+We evaluated each combination~(\emph{CNN x ClusteringAlg}) using the V-Measure \cite{vmeasure}, which is an entropy-based measure that computes how successfully the criteria of homogeneity and completeness have been satisfied. This metric is extensively used for comparing clustering solutions and has been used in different domain fields such as biology \cite{bio1}, computational linguistics \cite{nlp1}, and document engineering \cite{doceng}.
 
 \begin{table}[!ht]
 %\vspace{-1em}
@@ -134,7 +134,7 @@ VGG-16            & AP                  & 0.0000                     & 1.0000   
 \vspace{-1em}
 \end{table}
 
-From Table \ref{tab:results_clustering}, we concluded that the best combination of CNN and clustering algorithm was SeNet-50 with Agglomerative Clustering. Then, we used this combination in thirteen video, being able to track the actors in them. Figure \ref{fig:timeline1} shows the actors present in one of the videos with the frames tagged with colors representing the actors present on them.
+From Table \ref{tab:results_clustering}, we concluded that the best combination of CNN and clustering algorithm was SeNet-50 with Agglomerative Clustering. Then, we used this combination in thirteen videos, being able to track the actors in them. Figure \ref{fig:timeline1} shows the actors present in one of the videos with the frames tagged with colors representing the actors present on them.
 
 \begin{figure}[!ht]
     \centering
@@ -156,7 +156,7 @@ In that work, we used actors face clustering in 98 videos and around 72\% of the
     \label{fig:timeline2}
 \end{figure}
 
-Due to the distortions present in 360° video frames, we intend to process the region~(probabily using a viewport concentric with the bounding polygon of the face) before it pass through the embeddings generation and clustering steps. We expect that, in the end of this phase we will have, for a given 360° video, the trajectory of each actor throughout the duration of the video.
+Due to the distortions present in 360° video frames, we intend to process the region~(probably using a viewport concentric with the bounding polygon of the face) before it pass through the embeddings generation and clustering steps. We expect that, in the end of this phase we will have, for a given 360° video, the trajectory of each actor throughout the duration of the video.
 
 In summary, for this phase, we have defined the following tasks:
 
