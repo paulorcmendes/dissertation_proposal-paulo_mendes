@@ -1,4 +1,4 @@
-\section{Spatiotemporal Localization of Actors in 360-Video}
+\section{Automatic Subtitles Positioning in 360-Video}
 
 The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available \cite{mendes2020authoring}. These videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point. When using HMDs, at each instant in time, the viewer is presented with a viewport that is updated as the viewer moves their head. This type of content, especially when consumed through Virtual Reality~(VR) devices (HMDs included), can provide immersive experiences in which the user has a strong feeling of presence when compared with the use of traditional media \cite{montagud_culture_2020}. Due to this increasing popularity, we decided to investigate the usage of spatiotemporal localization of actors in 360-video.
 
@@ -23,7 +23,7 @@ Nowadays, the most common way for representing and transmitting 360-video is usi
 \label{fig:equirectangular_proj}
 \end{figure}
 
-Due to these distortions, we adapted the steps of our methods that use traditional CNNs: \emph{Face Detection} and \emph{Embeddings Generation}. These adaptations are described in Sections \ref{subsec:360_adaptations}. In Section \ref{subsec:dynamic_subtitles}, we describe an application of our method in 360-videos.
+Due to these distortions, we adapted the steps of our methods that use traditional CNNs: \emph{Face Detection} and \emph{Embeddings Generation}. These adaptations are described in Sections \ref{subsec:360_adaptations}. In Section \ref{subsec:dynamic_subtitles}, we describe how these adaptations can be used for subtitles positioning in 360-videos.
 
 \subsection{Face Detection and Embeddings Generation in 360-Videos}
 \label{subsec:360_adaptations}
@@ -70,7 +70,7 @@ For this part of our work, we have defined the following remaining task.
     \item \textbf{T 1}: Model test using MTCNN and MTCNN with viewports~(80\% complete).
 \end{itemize}
 
-\subsection{Dynamic Subtitles based on Actors Localization in 360-Video}
+\subsection{Authoring Model for Interactive 360-Videos}
 \label{subsec:dynamic_subtitles}
 
-In \cite{mendes2020authoring}, we proposed a model for authoring interactive 360° video. In such a model, we can define interactive 360° video that are presented together with additional information attached to it, such as image, text and spatial audio. The positioning of such additional information is defined by their polar coordinates, start time and duration. Moreover, we can also configure behaviours depending on where the user is looking. For instance, we can define that a text moves with the user's head motion and is always visible or that such text is placed at fixed position if it is in the field of view of the user. Besides the design of such a model, we developed a player that follows the definitions of our model and is able to play interactive 360° video defined by it. Then, we can use the results obtained from the previous phases to define the positioning of subtitles according to the actors positioning using our player.
+In \cite{mendes2020authoring}, we proposed a model for authoring interactive 360° video. In such a model, we can define interactive 360° video that are presented together with additional information attached to it, such as image, text and spatial audio. The positioning of such additional information is defined by their polar coordinates, start time and duration. Moreover, we can also configure behaviours depending on where the user is looking. For instance, we can define that a text moves with the user's head motion and is always visible or that such text is placed at fixed position if it is in the field of view of the user. Besides the design of such a model, we developed a player that follows the definitions of our model and is able to play interactive 360° video defined by it. Then, we can use the results obtained from the previous phase to define the positioning of subtitles according to the actors positioning using our player.

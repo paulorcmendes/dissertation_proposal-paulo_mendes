@@ -8,17 +8,64 @@ Let us define relevant people present in a video file as \emph{actors}.
 %%
 Generating metadata with the identity information of the actors present and their localization both in video frames~(spatial) and timeline~(temporal) can facilitate video indexing, retrieval, recommendation and a series of other tasks.
 %%
-
-Face detection methods have been attracting the attention of researchers for more than two decades~\cite{survey66}. 
-Nowadays, it is used for surveillance, video analytics systems, smart shopping, automatic face tagging in photo collections, investigative tools that search for identities in social networks based on face images, and thousands of other applications in our daily lives.
-For instance, Facer~\cite{hazelwood2018applied} is the Facebook's face detection and recognition framework; given a photograph, it first detects all the faces, and then runs a deep model to determine the likelihood of that face belonging to one of the top-N user friends.
-This allows Facebook to suggest which friends the user might want to tag within the uploaded photographs. 
+This dissertation intends to investigate a method for this spatiotemporal localization and a series of applications that such a method enables. 
 
 
+
+The first application is \emph{Video Face Recognition}.
 %%
-This dissertation investigates a method for this spatiotemporal localization and a series of applications that such a method enables. We investigate its applicability in 2D traditional videos and 360-video, which have been gaining attention in recent years~\cite{mendes2020authoring}.
-
+The face recognition task has been an active research topic for many years~\cite{survey66}.
 %%
-The remainder of this dissertation proposal is structured as follows.
+Many methodologies have been proposed, most commonly relying on comparing selected facial features of a given image with features of faces within a database.
+%%
+Using only one sample reference image of a person's face for the comparison may result in classification errors due to factors related to variations in lighting, image resolution, angle, etc.~\cite{598229}.
+%%
+To overcome this problem, some face recognition approaches use multiple face samples for comparison. However, this strategy does not scale well as the complexity is a function of the number of samples.
+%%
+Other approaches treat the face recognition task as a classification problem~\cite{dadi2016improved, ghosal}, where a classifier model learns rules to assign faces to previously known classes within a dataset, where each class corresponds to one person.
+%%
+Nonetheless, this kind of approach does not deal well when new classes are incorporated because of the need to retrain the classification models.
+%%
+Moreover, when dealing with video, these kinds of methods have to be applied to each frame, again increasing the complexity.
+%%
+In our work, we propose a cluster-matching-based approach for video face recognition where clustering is used to group faces in both the face dataset and in the target video.
+%%
+Consequently, classes do not have to be previously known, and the effort spent with annotations is significantly reduced --- as it is done over clusters instead of single images.
+%%
+Face recognition becomes a task of comparing clusters from the dataset with the ones extracted from images or video sources.
+%%
+Therefore, our approach is easily scalable and can be used to automatically generate video metadata. 
 
+
+The second application is \emph{Educational Video Recommendation}.
+%%
+The traditional paradigm of classroom courses centered on the physical presence of a teacher has been gradually giving space to online and hybrid courses, which enables the emergence of VTEs (Virtual Teaching Environment) and MOOCs~(\textit{Massive Open Online Courses}).
+%%
+If, on the one hand, the abundance of educational videos can contribute to and facilitate learning, on the other hand, it also makes it challenging to discover and access the content of interest~\cite{dias2017approach}.
+This issue is usually addressed by a proactive user search (using queries, for example), or by automatic recommendations made by specialized systems.
+%%
+In general, the current video recommendation methods are heavily dependent on textual information from the video, such as labels (\textit{i.e.} keywords)~\cite{mahajan2015optimising,omisore2014personalized}, or automatically generated captions \cite{barrere2020utilizaccao} from the lecturer speech.
+These systems face problems such as errors introduced by manually inserted labels and by imprecise speech recognition.
+%%
+In our work, we aim at recommending educational video content based on actors~(in this specific case, lecturers) presence.
+%%
+To do that, we take advantage of face detection methods.
+More precisely, we detect lecturers in a video taken as a reference and perform a clustering based on the face of these lecturers in different videos.
+%%
+Given these clusters, we extract their \textit{centroids}, and perform another clustering step for creating a relationship between videos that share the presence of the same lecturers.
+%%
+Finally, we rank the recommended videos based on the amount of time the referenced lecturers were present.
+A particular feature of this approach is that it can be done without supervision, allowing for new videos to be automatically analyzed.
+
+Our last application is \emph{Automatic Subtitles Positioning in 360-Video}. The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available \cite{mendes2020authoring}. Omnidirectional videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point.
+%%
+Several people use subtitles when consuming audiovisual media, and these subtitles are important in contributing to the understanding of the video content \cite{brown_subtitles_2017}. There are also people who choose to consume videos muted \cite{hughes_disruptive_2019}. Additionally, the work of \cite{hayati2011effect}, as referenced in \cite{hughes_disruptive_2019}, shows that consumers are more likely to watch videos entirely if they have subtitles presented with them. In traditional 2D videos, static subtitles are commonly used and they are usually placed at the bottom-center of the screen \cite{rothe_dynamic_2018}.
+%%
+Different from traditional 2D videos, subtitles positioning in 360-videos is challenging because it involves both temporal and spatial domains \cite{agullo2019making}, and there is no ``center-bottom" of the screen in a 360-video \cite{brown_subtitles_2017}. Most current solutions rely on positioning subtitles either statically to the viewer or at a fixed position in the 360-degree environment %\cite{mendes2020authoring}.
+%%
+In our work, we adapt our current solution for the spatiotemporal localisation of actors~(used in the first two applications) to the 360-video domain. By doing that, we intend to use this localisation for positioning subtitles close to the actors in the 360-video.
+
+
+
+The remainder of this dissertation proposal is structured as follows. In Section \ref{sec:related_work}, we discuss some works related to each of our applications. The next three sessions contains details about our applications. In Section \ref{sec_contritutions}, we highlight the contributions our work have already achieved. Section \ref{sec_expected} points out the overall contributions we expect to achieve by the end of our dissertation. Finally, Section \ref{sec_schedule} shows the schedule we propose for concluding the remaining tasks of our work.
 

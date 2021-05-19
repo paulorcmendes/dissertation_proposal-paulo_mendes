@@ -96,9 +96,9 @@ The second evaluation aimed at measuring how well our approach performed on vide
 \label{faces_clustering_evaluation}
 In the \emph{Face Detection} step, we use MTCNN~\cite{mtcnn} (Multitask
 Cascaded Convolutional Networks) which is widely used for the face detection task.
-
+%%
 For the \emph{Embeddings Generation} step, we have three candidate CNNs that were previously trained on the VGGFace2 dataset~\cite{cao2018vggface2}. The three candidate CNNs used are VGG-16~\cite{vgg16}, ResNet-50~\cite{resnet} and SeNet-50~\cite{senet}. 
-
+%%
 For the \emph{Clustering} step, we selected the following clustering algorithms as candidates: k-Means~\cite{lloyd1982least}, affinity propagation~\cite{frey2007clustering}, and agglomerative clustering~\cite{ward1963hierarchical}.
 
 We evaluate the models using the V-Measure~\cite{vmeasure}, which is an entropy-based measure that computes how successfully the criteria of homogeneity and completeness have been satisfied. This metric is extensively used for comparing clustering solutions and has been used in different domain fields such as biology~\cite{bio1}, computational linguistics~\cite{nlp1}, and document engineering~\cite{doceng}.
@@ -106,6 +106,11 @@ We evaluate the models using the V-Measure~\cite{vmeasure}, which is an entropy-
 The homogeneity score is perfect when a clustering algorithm assigns only those data points that are members of a single class to a single cluster, so that the entropy is zero in each cluster. The Completeness score is symmetrical with respect to homogeneity, and it is perfect when a clustering assigns all data points that are members of the same class to a single cluster.
 
 Table \ref{tab:results_clustering} shows the homogeneity, completeness, and V-Measure for each combination of CNN and clustering algorithm.
+%%
+From this table, one can conclude that the best combination of CNN and clustering algorithm was SeNet-50 with Agglomerative Clustering.
+%%
+For this reason, we decided to use SeNet-50 for the \emph{Embeddings Generation} phase and the Agglomerative Clustering algorithm for the \emph{Clustering} phase.
+
 
 \begin{table}[!ht]
 \small
@@ -127,9 +132,7 @@ VGG-16            & AP                  & 0.0000                     & 1.0000   
 \label{tab:results_clustering}
 \vspace{-1em}
 \end{table}
-From Table \ref{tab:results_clustering}, one can conclude that the best combination of CNN and clustering algorithm was SeNet-50 with Agglomerative Clustering.
-%%
-For this reason, we decided to use SeNet-50 for the \emph{Embeddings Generation} phase and the Agglomerative Clustering algorithm for the \emph{Clustering} phase.
+
 
 \subsubsection{Video Face Recognition Evaluation}
 
@@ -200,7 +203,7 @@ We also count the number of exact frames match (\#EM). It corresponds to the num
 Table \ref{tab:results_videos} shows the results we obtained, the number of different people in each video~(\emph{\#P}), and the number of people who are present in the labeled clusters~(\emph{\#R}).
 
 One can observe that our method is able to correctly classify the faces of people that are present in the labeled clusters while also being able to tell when a person is not registered in the labeled clusters.
-
+%%
 Our method can also be used to generate metadata in video files indicating the people that appear in it.
 %%
 Figure \ref{fig:timeline_pol} shows the first 12 seconds of \emph{Video d}~(detailed in Table \ref{tab:results_videos}) where two identified Brazilian politicians are shown in each frame with its respective colored cluster.
