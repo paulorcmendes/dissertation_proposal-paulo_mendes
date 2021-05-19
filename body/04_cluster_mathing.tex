@@ -103,7 +103,7 @@ For the \emph{Clustering} step, we selected the following clustering algorithms 
 
 We evaluate the models using the V-Measure~\cite{vmeasure}, which is an entropy-based measure that computes how successfully the criteria of homogeneity and completeness have been satisfied. This metric is extensively used for comparing clustering solutions and has been used in different domain fields such as biology~\cite{bio1}, computational linguistics~\cite{nlp1}, and document engineering~\cite{doceng}.
 %%
-The homogeneity score is perfect when a clustering algorithm assigns only those data points that are members of a single class to a single cluster, so that the entropy is zero in each cluster. The Completeness score is symmetrical with respect to homogeneity, and it is perfect when a clustering assigns all data points that are members of the same class to a single cluster.
+The homogeneity score is perfect when a clustering algorithm assigns only those data points that are members of a single class to a single cluster, so that the entropy is zero in each cluster. The completeness score is symmetrical with respect to homogeneity, and it is perfect when a clustering assigns all data points that are members of the same class to a single cluster.
 
 Table \ref{tab:results_clustering} shows the homogeneity, completeness, and V-Measure for each combination of CNN and clustering algorithm.
 %%
@@ -156,6 +156,11 @@ As usual, the Precision is defined as the percentage of detected faces that our 
 the Recall gives the percentage of faces that our method correctly labels among all faces in the video, and 
 %%
 the F1-score represents an overall performance metric based on the  harmonic mean of the precision and recall.
+%%
+We also count the number of exact frames match (\#EM). It corresponds to the number of frames (\#F) for which our method correctly labeled all the faces that appears. 
+%%
+Table \ref{tab:results_videos} shows the results we obtained, the number of different people in each video~(\emph{\#P}), and the number of people who are present in the labeled clusters~(\emph{\#R}).
+
 \begin{table}[!ht]
 \centering
 \small
@@ -198,9 +203,8 @@ m%\footnote{http://youtu.be/3dIVdsiPDH8}
 \end{tabular}
 \vspace{-1em}
 \end{table}
-We also count the number of exact frames match (\#EM). It corresponds to the number of frames (\#F) for which our method correctly labeled all the faces that appears. 
-%%
-Table \ref{tab:results_videos} shows the results we obtained, the number of different people in each video~(\emph{\#P}), and the number of people who are present in the labeled clusters~(\emph{\#R}).
+
+
 
 One can observe that our method is able to correctly classify the faces of people that are present in the labeled clusters while also being able to tell when a person is not registered in the labeled clusters.
 %%
