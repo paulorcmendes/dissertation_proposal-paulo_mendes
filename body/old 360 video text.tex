@@ -1,3 +1,36 @@
+\section{Introduction}
+
+The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available \cite{mendes_2020}. Omnidirectional videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point. When using HMDs, at each instant in time, the viewer is presented with a viewport that is updated as the viewer moves their head. This type of content, especially when consumed through Virtual Reality~(VR) devices (HMDs included), can provide immersive experiences in which the user has a strong feeling of presence when compared with the use of traditional media \cite{montagud_culture_2020}.
+
+Several people use subtitles when consuming audiovisual media, and these subtitles are important in contributing to the understanding of the video content \cite{brown_subtitles_2017}. There are also people who choose to consume videos muted \cite{hughes_disruptive_2019}. Additionally, the work of \cite{hayati2011effect}, as referenced in \cite{hughes_disruptive_2019}, shows that consumers are more likely to watch videos entirely if they have subtitles presented with them. In traditional 2D videos, static subtitles are commonly used and they are usually placed at the bottom-center of the screen \cite{rothe_dynamic_2018}.
+
+Different from traditional 2D videos, subtitles positioning in 360-videos is challenging because it involves both temporal and spatial domains \cite{agullo2019making}, and there is no ``center-bottom" of the screen in a 360-video \cite{brown_subtitles_2017}. Most current solutions rely on positioning subtitles either statically to the viewer or at a fixed position in the 360-degree environment \cite{mendes_2020}. According to \cite{li_impacts_2018}, in a journalistic 360-videos case study, the subtitles viewing behaviour is dependent on the type of content. 
+
+A Machine Learning~(ML) based solution may help content creators position subtitles based on the people present on the 360° video. Such a solution could help identifying the speaker in 360° video, while also reducing the effort in the process of authoring such video. However, due to the peculiarities of this kind of content, current ML solutions should be adapted. Nowadays, equirectangular projection is the most common way for representing and transmitting 360° video~\cite{yang2018object}. With the equirectangular projection, each sphere point is defined by two angles~\cite{snyder1987map}: \emph{latitude}~$\theta \in [-90^{\circ}, +90^{\circ}]$ and \emph{longitude}~$\phi \in [-180^{\circ}, +180^{\circ}]$. This kind of projection creates challenges for image processing and computer vision algorithms, especially to the convolution-based ones because of the severe distortions in areas vertically distant from the center of the image~(see Figure \ref{fig:equirectangular_proj}). 
+
+\begin{figure}[!ht]
+\centering
+    \begin{subfigure}{0.47\linewidth}
+        \centering
+        \includegraphics[width=1\textwidth]{img/image (9).jpg}
+        \caption{Outdoor equirectangular image.}
+        \label{subfig:out_equi}
+    \end{subfigure}\hfill
+    \begin{subfigure}{0.47\linewidth}
+        \centering
+        \includegraphics[width=1\textwidth]{img/image (10).JPG}
+        \caption{Indoor equirectangular image.}
+        \label{subfig:in_equi}
+    \end{subfigure}
+
+\caption{Examples of 360° scenes represented through equirectangular projection.}
+\label{fig:equirectangular_proj}
+\end{figure}
+
+The remainder of this dissertation proposal is structured as follows. Section~\ref{sec:subtitles} presents current solutions for subtitles positioning in 360º video. Section~\ref{sec:approach} details our proposed approach for automatic subtitles positioning. In Section~\ref{sec_4}, we present the contributions we already achieved in this work. Section~\ref{sec_5} contains the remaining contributions we expect to achieve by the end of this research. Finally, in Section~\ref{sec_6}\ we present our schedule.
+
+
+
 \section{Approach}
 \label{sec:approach}
 Let us define as \emph{actor} each person present in a 360º video. Therefore, the goal of our approach is to place subtitles based on the actors' position on a given 360° video. To accomplish this goal, we use face detection and clustering mechanisms to identify the actors' trajectory in 360° video. Then, based on this trajectory, we place dynamic subtitles following the actors' path. For dicdatic purposes, we decided to divide our exposition in three phases: (i)~\emph{face detection in 360° videos}, (ii)~\emph{actors clusterization}, and (iii)~\emph{dynamic subtitles positioning}. These phases are described in the following subsections. 
@@ -55,7 +88,7 @@ In summary, for this phase, we have defined the following tasks:
     \item \textbf{T 1.1}: Implementation of model based on viewports for face detection in 360° equirectangular images~(100\% complete).
     \item \textbf{T 1.2}: Synthetic dataset creation~(100\% complete).
     \item \textbf{T 1.3}: Model test in the dataset using MTCNN and MTCNN with viewports~(100\% complete).
-    \item \textbf{T 1.4}: Results evaluation using mAP~(90\% complete).
+    \item \textbf{T 1.4}: Results evaluation using mAP~(100\% complete).
 \end{itemize}
 
 
@@ -156,7 +189,7 @@ In that work, we used actors face clustering in 98 videos and around 72\% of the
     \label{fig:timeline2}
 \end{figure}
 
-Due to the distortions present in 360° video frames, we intend to process the region~(probably using a viewport concentric with the bounding polygon of the face) before it pass through the embeddings generation and clustering steps. We expect that, in the end of this phase we will have, for a given 360° video, the trajectory of each actor throughout the duration of the video.
+Due to the distortions present in 360° video frames, we return the faces detected in the viewports to pass through the embeddings generation and clustering steps. By doing so, the possible distortions present in the face detected are reduced. We expect that, in the end of this phase we will have, for a given 360° video, the trajectory of each actor throughout the duration of the video.
 
 In summary, for this phase, we have defined the following tasks:
 
@@ -164,24 +197,37 @@ In summary, for this phase, we have defined the following tasks:
 \begin{itemize}
     \item \textbf{T 2.1}: Evaluation of combinations of CNNs and clustering algorithms~(100\% complete).
     \item \textbf{T 2.2}: Evaluation of faces clustering with videos~(100\% complete).
-    \item \textbf{T 2.3}: Development of a method to correct distortions before faces clustering in 360° video~(0\% complete).
+    \item \textbf{T 2.3}: Development of a method to correct distortions before faces clustering in 360° video~(100\% complete).
 \end{itemize}
 
 
-\subsection{Dynamic Subtitles Positioning}
+\subsection{ML-Based Dynamic Subtitles Positioning}
 
 The main objective of this phase is to position subtitles considering the position of the actors in the 360° video.
 
 In \cite{mendes_2020}, we proposed a model for authoring interactive 360° video. In such a model, we can define interactive 360° video that are presented together with additional information attached to it, such as image, text and spatial audio. The positioning of such additional information is defined by their polar coordinates, start time and duration. Moreover, we can also configure behaviours depending on where the user is looking. For instance, we can define that a text moves with the user's head motion and is always visible or that such text is placed at fixed position if it is in the field of view of the user. Besides the design of such a model, we developed a player that follows the definitions of our model and is able to play interactive 360° video defined by it. Then, we can use the results obtained from the previous phases to define the positioning of subtitles according to the actors positioning using our player.
 
-We plan to evaluate our strategy for subtitles positioning with users, presenting 360° video with different strategies for subtitles positioning and comparing them with ours. Our strategy fits in the category described in Section \ref{subsubsec:speaker_following}, but different from the strategies presented there, ours use machine learning to help content creators define how subtitles behave.
+For testing our approach, we intend to select 360º video with people present and talking as case studies so that we can verify the applicability of our solution. Our strategy fits in the category described in Section \ref{subsubsec:speaker_following}, but different from the strategies presented there, ours use machine learning to help content creators define how subtitles behave.
 
 In summary, for this phase, we have defined the following tasks:
 
 \begin{itemize}
     \item \textbf{T 3.1}: Definition of a model that supports subtitles positioning using polar coordinates~(100\% complete).
     \item \textbf{T 3.2}: Development of a player that supports dynamic subtitles positioning depending on the users' field of view~(100\% complete).
-    \item \textbf{T 3.3}: Definition of 360° videos that will be used in the evaluation~(0\% complete).
-    \item \textbf{T 3.4}: Definition of questionnaires/evaluation metrics~(20\% complete).
-    \item \textbf{T 3.5}: Evaluation of our strategy~(0\% complete).
+    \item \textbf{T 3.3}: Selection and development of interactive 360º videos with dynamic subtitles. (20\%)
 \end{itemize}
+
+\section{Contributions}
+\label{sec_4}
+ As collateral contributions of this research, three papers have been published in relevant multimedia conferences \cite{mendes2020cluster, mendes_2020, mendes2020ISM}. In \cite{mendes_2020}, we have developed an authoring model and a player for interactive 360º video. In \cite{mendes2020cluster}, we have evaluated video face clustering together with a cluster-matching method for video face recognition. In \cite{mendes2020ISM}, we have used video face clustering and the presence of actors in different video as a mean for recommending educational videos. We have also created a synthetic dataset for face detection in equirectangular images.
+
+\section{Expected Contributions}
+\label{sec_5}
+In this dissertation proposal we have proposed an ML-based solution for face clustering and subtitles positioning in 360° video. We expect that our method together with our authoring model and player will help content creators in the process of authoring interactive 360-degree video with subtitles.
+
+
+\section{Schedule}
+\label{sec_6}
+Table \ref{tab:schedule} presents the schedule we propose for completing the remainder tasks of this research.
+
+\input{tables/schedule.tex}

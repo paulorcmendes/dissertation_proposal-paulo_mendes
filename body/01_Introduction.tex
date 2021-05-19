@@ -1,35 +1,24 @@
 \section{Introduction}
 
-The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available \cite{mendes_2020}. Omnidirectional videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point. When using HMDs, at each instant in time, the viewer is presented with a viewport that is updated as the viewer moves their head. This type of content, especially when consumed through Virtual Reality~(VR) devices (HMDs included), can provide immersive experiences in which the user has a strong feeling of presence when compared with the use of traditional media \cite{montagud_culture_2020}.
+In recent years, the popularity of platforms for the storage and transmission of video content has enabled a massive volume of video data production and consumption.
+%%
+As an example, in 2019, more than one billion hours of YouTube videos were watched per day.\footnote{https://kinsta.com/blog/youtube-stats/}
+%%
+Let us define relevant people present in a video file as \emph{actors}.
+%%
+Generating metadata with the identity information of the actors present and their localization both in video frames~(spatial) and timeline~(temporal) can facilitate video indexing, retrieval, recommendation and a series of other tasks.
+%%
 
-Several people use subtitles when consuming audiovisual media, and these subtitles are important in contributing to the understanding of the video content \cite{brown_subtitles_2017}. There are also people who choose to consume videos muted \cite{hughes_disruptive_2019}. Additionally, the work of \cite{hayati2011effect}, as referenced in \cite{hughes_disruptive_2019}, shows that consumers are more likely to watch videos entirely if they have subtitles presented with them. In traditional 2D videos, static subtitles are commonly used and they are usually placed at the bottom-center of the screen \cite{rothe_dynamic_2018}.
+Face detection methods have been attracting the attention of researchers for more than two decades~\cite{survey66}. 
+Nowadays, it is used for surveillance, video analytics systems, smart shopping, automatic face tagging in photo collections, investigative tools that search for identities in social networks based on face images, and thousands of other applications in our daily lives.
+For instance, Facer~\cite{hazelwood2018applied} is the Facebook's face detection and recognition framework; given a photograph, it first detects all the faces, and then runs a deep model to determine the likelihood of that face belonging to one of the top-N user friends.
+This allows Facebook to suggest which friends the user might want to tag within the uploaded photographs. 
 
-Different from traditional 2D videos, subtitles positioning in 360-videos is challenging because it involves both temporal and spatial domains \cite{agullo2019making}, and there is no ``center-bottom" of the screen in a 360-video \cite{brown_subtitles_2017}. Most current solutions rely on positioning subtitles either statically to the viewer or at a fixed position in the 360-degree environment \cite{mendes_2020}. According to \cite{li_impacts_2018}, in a journalistic 360-videos case study, the subtitles viewing behaviour is dependent on the type of content. 
 
-A Machine Learning~(ML) based solution may help content creators position subtitles based on the people present on the 360° video. Such a solution could help identifying the speaker in 360° video, while also reducing the effort in the process of authoring such video. However, due to the peculiarities of this kind of content, current ML solutions should be adapted. Nowadays, equirectangular projection is the most common way for representing and transmitting 360° video~\cite{yang2018object}. With the equirectangular projection, each sphere point is defined by two angles~\cite{snyder1987map}: \emph{latitude}~$\theta \in [-90^{\circ}, +90^{\circ}]$ and \emph{longitude}~$\phi \in [-180^{\circ}, +180^{\circ}]$. This kind of projection creates challenges for image processing and computer vision algorithms, especially to the convolution-based ones because of the severe distortions in areas vertically distant from the center of the image~(see Figure \ref{fig:equirectangular_proj}). Thus, our main research questions are the following:
+%%
+This dissertation investigates a method for this spatiotemporal localization and a series of applications that such a method enables. We investigate its applicability in 2D traditional videos and 360-video, which have been gaining attention in recent years~\cite{mendes2020authoring}.
 
-\begin{itemize}
-    \item[RQ.1] \emph{How can an ML-based solution be used to position subtitles in 360° video and still promote quality of experience?}
-    \item[RQ.2] \emph{How can we adapt existing ML solutions for speaker identification to the equirectangular domain?}
-\end{itemize}
+%%
+The remainder of this dissertation proposal is structured as follows.
 
-\begin{figure}[!ht]
-\centering
-    \begin{subfigure}{0.47\linewidth}
-        \centering
-        \includegraphics[width=1\textwidth]{img/image (9).jpg}
-        \caption{Outdoor equirectangular image.}
-        \label{subfig:out_equi}
-    \end{subfigure}\hfill
-    \begin{subfigure}{0.47\linewidth}
-        \centering
-        \includegraphics[width=1\textwidth]{img/image (10).JPG}
-        \caption{Indoor equirectangular image.}
-        \label{subfig:in_equi}
-    \end{subfigure}
 
-\caption{Examples of 360° scenes represented through equirectangular projection.}
-\label{fig:equirectangular_proj}
-\end{figure}
-
-The remainder of this dissertation proposal is structured as follows. Section~\ref{sec:subtitles} presents the current solutions for subtitles positioning in 360º video. Section~\ref{sec:approach} details our proposed approach for automatic subtitles positioning. Finally, Section~\ref{sec_4} presents our final considerations such as the current status of our work, the next steps, and the work schedule.
