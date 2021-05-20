@@ -1,6 +1,6 @@
 \section{A Clustering-Based Method for Automatic Educational Video Recommendation Using Deep Face-Features of Actors}
 
-Following the approach described in Section \ref{webmedia}, in \cite{mendes2020ISM}, we used actors face clustering for recommending videos that share the presence of the same actors. 
+Following the approach described in Section \ref{webmedia}, in \cite{mendes2020ISM} we used actors face clustering for recommending videos that share the presence of the same actors. 
 %%
 This work aimed at recommending educational video content based on actors' presence.
 To do that, we take advantage of face detection methods.
@@ -40,21 +40,21 @@ For didactic purposes we decided to divide our exposition in two phases: (i)~\em
 \end{figure*}
 
 The objective of this phase is to represent each video with vectors~(centroids) of the actors that appear on it. 
-Fig. \ref{fig:video_clustering} shows the pipeline we propose for this phase, described in the remainder of this subsection.
+Figure \ref{fig:video_clustering} shows the pipeline we propose for this phase.
 It is divided into four steps: \emph{Frames Extraction}, \emph{Face Detection}, \emph{Embeddings Generation} and \emph{Clustering Representation}.
 
 The steps of this process are the same used in Figure \ref{fig:cluster_matching} up to the \emph{Face Clustering} step, obtaining the video face clusters.
 %%
 The difference here is that the \emph{Clustering Representation} returns the centroids of the clusters found.
 %%
-By the end of this phase, we have each video in the dataset represented by its centroids where, ideally, each centroid represents a actor present in the video.
+By the end of this phase, we have each video in the dataset represented by its centroids where, ideally, each centroid represents an actor present in the video.
 
 
 \subsubsection{Video Recommendation}
 \label{subsec:video_recommendation}
 
 This phase aims at recommending videos by the actors present in it and in the other videos.
-It is divided in two steps: \emph{Centroids Clustering} and \emph{Ranking}, as depicted in Fig. \ref{fig:video_recommendation}.
+It is divided in two steps: \emph{Centroids Clustering} and \emph{Ranking}, as depicted in Figure \ref{fig:video_recommendation}.
 
 \begin{figure*}[!ht]
   \centering
@@ -65,7 +65,7 @@ It is divided in two steps: \emph{Centroids Clustering} and \emph{Ranking}, as d
 
 First, we gather the centroids from the videos of the dataset as one single set and perform the \textit{Centroids Clustering}.
 %%
-By doing that, we group centroids from the same actor that are in different videos. For instance, in Fig. \ref{fig:video_recommendation}, one can see that the \emph{purple actor} is present in both Videos 1 and 2, while the \emph{orange actor} is present in both Videos 2 and n. By the end of this step, we have the group $L$ of actors present in the dataset of videos $V$, and we can also denote $L_v$ as the group of actors present in video $v$.
+By doing that, we group centroids from the same actor that are in different videos. For instance, in Figure \ref{fig:video_recommendation}, one can see that the \emph{purple actor} is present in both Videos 1 and 2, while the \emph{orange actor} is present in both Videos 2 and n. By the end of this step, we have the group $L$ of actors present in the dataset of videos $V$, and we can also denote $L_v$ as the group of actors present in video $v$.
 
 Next, based on these relationships among different videos, we perform \textit{Ranking}, by recommending videos in which actors of the current video are present. 
 %%
@@ -113,10 +113,10 @@ Once we have detected the faces of actors in the video frames, we perform \emph{
 Finally, in the \emph{Clustering Representation} step, we used the Agglomerative Clustering.
 %%
 The choice for the combination SeNet-50 with the Agglomerative Clustering algorithm comes from the fact that this combination returned the best results in the evaluation described in Section \ref{faces_clustering_evaluation}.
-
+%%
 For performing the video recommendation task, we gather the centroids~(that represent each actor in the video) from all videos in the dataset. Next, we perform the process described in Section \ref{subsec:video_recommendation}.
 
-In order to prevent outliers from having much influence in the recommendation (e.g. a person that is not a actor -- and not relevant to the video -- and appears for a short amount of time), we evaluated different thresholds of presence intervals in a video for a person to be considered as ``present'' when computing the score for the ranking. 
+In order to prevent outliers from having much influence in the recommendation (e.g. a person that is relevant to the video and appears for a short amount of time), we evaluated different thresholds of presence intervals in a video for a person to be considered as ``present'' when computing the score for the ranking. 
 %%
 In this way, a $p_{l,v}$ lesser than the threshold is considered as $0$.
 %%

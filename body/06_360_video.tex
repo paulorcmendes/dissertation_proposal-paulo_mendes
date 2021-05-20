@@ -1,6 +1,6 @@
 \section{Automatic Subtitles Positioning in 360-Video}
 
-The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available \cite{mendes2020authoring}. These videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point. When using HMDs, at each instant in time, the viewer is presented with a viewport that is updated as the viewer moves their head. This type of content, especially when consumed through Virtual Reality~(VR) devices (HMDs included), can provide immersive experiences in which the user has a strong feeling of presence when compared with the use of traditional media \cite{montagud_culture_2020}. Due to this increasing popularity, we decided to investigate the usage of spatiotemporal localization of actors in 360-video.
+The recent popularization of omnidirectional cameras and Head-Mounted-Displays (HMDs) has increased the amount of 360-video content available. These videos are spherical visual signals that allow the viewer to look around a full 360-degree view of a scene from a specific point. When using HMDs, at each instant in time, the viewer is presented with a viewport that is updated as the viewer moves their head. This type of content, especially when consumed through Virtual Reality~(VR) devices (HMDs included), can provide immersive experiences in which the user has a strong feeling of presence when compared with the use of traditional media \cite{montagud_culture_2020}. Due to this increasing popularity, we decided to investigate the usage of spatiotemporal localization of actors in 360-video.
 
 Nowadays, the most common way for representing and transmitting 360-video is using an equirectangular projection~\cite{yang2018object}. With the equirectangular projection, each sphere point is defined by two angles~\cite{snyder1987map}: \emph{latitude}~$\theta \in [-90^{\circ}, +90^{\circ}]$ and \emph{longitude}~$\phi \in [-180^{\circ}, +180^{\circ}]$. This kind of projection creates challenges for image processing and computer vision algorithms, especially to the convolution-based ones because of the severe distortions in areas vertically distant from the center of the image~(see Figure \ref{fig:equirectangular_proj}).
 
@@ -23,7 +23,7 @@ Nowadays, the most common way for representing and transmitting 360-video is usi
 \label{fig:equirectangular_proj}
 \end{figure}
 
-Due to these distortions, we adapted the steps of our methods that use traditional CNNs: \emph{Face Detection} and \emph{Embeddings Generation}. These adaptations are described in Sections \ref{subsec:360_adaptations}. In Section \ref{subsec:dynamic_subtitles}, we describe how these adaptations can be used for subtitles positioning in 360-videos.
+Due to these distortions, we adapted the steps of our methods that use traditional CNNs: \emph{Face Detection} and \emph{Embeddings Generation}. These adaptations are described in Sections \ref{subsec:360_adaptations}. In Section \ref{subsec:dynamic_subtitles}, we describe how our method with these adaptations can be used for subtitles positioning in 360-videos.
 
 \subsection{Face Detection and Embeddings Generation in 360-Videos}
 \label{subsec:360_adaptations}
@@ -67,7 +67,7 @@ After eliminating repeated detections with NMS, we perform \emph{Embeddings Gene
 For this part of our work, we have defined the following remaining task.
 
 \begin{itemize}
-    \item \textbf{T 1}: Model test using MTCNN and MTCNN with viewports~(80\% complete).
+    \item \textbf{T 1}: Model evaluation using MTCNN and MTCNN with viewports~(80\% complete).
 \end{itemize}
 
 \subsection{Authoring Model for Interactive 360-Videos}
